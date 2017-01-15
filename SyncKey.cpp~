@@ -1,0 +1,64 @@
+#include <iostream>
+#include <algorithm>
+#include "SyncKey.h"
+
+using namespace std;
+
+void SyncKey:: initialize(){
+//mutex
+	syncs.push_back("pthread_mutex_init");
+	syncs.push_back("pthread_mutex_lock");
+	syncs.push_back("pthread_mutex_unlock");
+	syncs.push_back("pthread_mutex_trylock");
+	syncs.push_back("pthread_mutex_destroy");
+	syncs.push_back("pthread_mutexattr_getkind_np");
+	syncs.push_back("pthread_mutexattr_setkind_np");
+	syncs.push_back("pthread_mutexattr_gettype");
+	syncs.push_back("pthread_mutexattr_settype");
+	syncs.push_back("pthread_mutexattr_getpshared");
+	syncs.push_back("pthread_mutexattr_setpshared");
+//cond
+	syncs.push_back("pthread_cond_init");
+	syncs.push_back("pthread_cond_wait");
+	syncs.push_back("pthread_cond_timedwait");
+	syncs.push_back("pthread_cond_signal");
+	syncs.push_back("pthread_cond_broadcast");
+	syncs.push_back("pthread_cond_destroy");
+	syncs.push_back("pthread_condattr_getpshared");
+	syncs.push_back("pthread_condattr_setpshared");
+	syncs.push_back("pthread_condattr_getkind_np");
+	syncs.push_back("pthread_condattr_setkind_np");
+
+//rw
+	syncs.push_back("pthread_rw_init");
+	syncs.push_back("pthread_rw_rdlock");
+	syncs.push_back("pthread_rw_tryrdlock");
+	syncs.push_back("pthread_rw_wrlock");
+	syncs.push_back("pthread_rw_trywrlock");
+	syncs.push_back("pthread_rw_unlock");
+	syncs.push_back("pthread_rw_destroy");
+	syncs.push_back("pthread_rwlockattr_getpshared");
+	syncs.push_back("pthread_rwlockattr_setpshared");
+//sem
+	syncs.push_back("sem_init");
+	syncs.push_back("sem_wait");
+	syncs.push_back("sem_post");
+	syncs.push_back("sem_getvalue");
+	syncs.push_back("sem_destroy");
+}
+int SyncKey::getSyncId(string syncName){
+	int index = find(syncs.begin(),syncs.end(),syncName) - syncs.begin();
+	if( index != (syncs.end() - syncs.begin())
+		return index;
+	else
+		return -1;
+}
+bool SyncKey::syncPresent(string syncName){
+	if(getSyncId(syncName) != -1)
+		return true;
+	else
+		return false;
+}
+int SyncKey::syncNum(){
+	return syncs.size();
+}

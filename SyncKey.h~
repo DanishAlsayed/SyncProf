@@ -1,0 +1,14 @@
+#include <string>
+#include <vector>
+using namespace std;
+
+class SyncKey{
+	public:
+		static void initialize();
+		static int getSyncId(string syncName);
+		static bool syncPresent(string syncName);
+		static int syncNum();
+	private:
+		static vector <string> syncs;
+		//static bool initialized; make mechanism to make sure syncs is initialized
+};
