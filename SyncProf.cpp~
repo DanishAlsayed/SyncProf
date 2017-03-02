@@ -188,7 +188,7 @@ static char ID;
 							Instruction *newInst = CallInst::Create(hook, args);
                            				BB->getInstList().insert((Instruction*)CI, newInst);
 							builder.SetInsertPoint((*BI).getNextNode());
-							std::cout<<CI<<std::endl;
+							std::cout<<newInst<<std::endl;
 							if(func->getName()=="pthread_mutex_lock"){
 								Value* args [3] = {newInst, builder.getInt32(reinterpret_cast<uintptr_t>(CI)), builder.getInt32(1)};
 								Instruction *newInst2 = CallInst::Create(tfunc, args);
